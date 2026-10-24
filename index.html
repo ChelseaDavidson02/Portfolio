@@ -201,11 +201,18 @@ footer span { overflow-wrap: anywhere; }
 
     <article class="entry" id="quadruped">
       <figure>
-        <div class="plate" data-slot="quadruped">
-          <video data-src="videos/quadruped.mp4" controls playsinline preload="metadata" hidden></video>
+        <div class="plate" data-slot="quadruped-trot">
+          <video data-src="videos/quadruped-trot.mp4" controls playsinline preload="metadata" hidden></video>
           <div class="pending"><div class="play"></div><span class="label">Video coming soon</span></div>
         </div>
-        <figcaption class="fig"><b>Fig. 3</b>Unitree A1 trot and slope traversal in PyBullet</figcaption>
+        <figcaption class="fig"><b>Fig. 3a</b>CPG-based trot on the Unitree A1 in PyBullet</figcaption>
+        <figure class="sub">
+          <div class="plate" data-slot="quadruped-slope">
+            <video data-src="videos/quadruped-slope.mp4" controls playsinline preload="metadata" hidden></video>
+            <div class="pending"><div class="play"></div><span class="label">Video coming soon</span></div>
+          </div>
+          <figcaption class="fig"><b>Fig. 3b</b>PPO-adapted CPG controller traversing a slope</figcaption>
+        </figure>
       </figure>
       <div class="text">
         <span class="chip">Simulation</span>
@@ -230,7 +237,7 @@ footer span { overflow-wrap: anywhere; }
           <video data-src="videos/rmp.mp4" controls playsinline preload="metadata" hidden></video>
           <div class="pending"><div class="play"></div><span class="label">Video coming soon</span></div>
         </div>
-        <figcaption class="fig"><b>Fig. 4</b>Franka Panda following a surface in PyBullet</figcaption>
+        <figcaption class="fig"><b>Fig. 4</b>Franka Panda following a surface in PyBullet, with the goal point in green</figcaption>
       </figure>
       <div class="text">
         <span class="chip">Simulation</span>
@@ -238,8 +245,10 @@ footer span { overflow-wrap: anywhere; }
         <p class="ctx">Bachelor Thesis, The University of Queensland, 2023. High Distinction.</p>
         <ul>
           <li>Developed a real-time controller that makes a Franka Emika Panda arm follow the surface of the Large Hadron Collider accelerator, to support precise radiation measurements.</li>
-          <li>Generated point clouds from RGB-D camera data to give the controller live surface feedback.</li>
+          <li>Built the controller on Riemannian Motion Policies (RMPs), with live surface feedback from point clouds generated from RGB-D camera data.</li>
+          <li>Evaluated it in randomly generated PyBullet environments.</li>
         </ul>
+        <p class="note">RMPs are well suited to point goals and convex obstacles, so the sensed surface is treated as a cloud of spheres to avoid. The goal is a point at the desired distance from the surface, shown as the green ball in the video.</p>
         <dl>
           <dt>Robot</dt><dd>Franka Emika Panda (simulated)</dd>
           <dt>Simulator</dt><dd>PyBullet</dd>
