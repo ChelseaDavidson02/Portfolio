@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chelsea Davidson Robotics</title>
+<meta name="description" content="Robotics portfolio of Chelsea Davidson, MSc Robotics student at EPFL: reinforcement learning, legged, aerial and amphibious robots.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a test-log. Each project is one entry: a video plate beside a spec sheet, ruled apart like pages of a lab notebook. */
+:root {
+  --bg: #f2f4f6;
+  --plate: #e2e7ec;
+  --ink: #1c2434;
+  --muted: #53607a;
+  --rule: #cdd4dc;
+  --accent: #b5460f;
+  --grid: rgba(28, 36, 52, 0.07);
+  --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111620;
+    --plate: #1a2230;
+    --ink: #e8ecf2;
+    --muted: #9ba6bb;
+    --rule: #2b3447;
+    --accent: #f0905a;
+    --grid: rgba(232, 236, 242, 0.06);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111620;
+  --plate: #1a2230;
+  --ink: #e8ecf2;
+  --muted: #9ba6bb;
+  --rule: #2b3447;
+  --accent: #f0905a;
+  --grid: rgba(232, 236, 242, 0.06);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.6;
+  padding-block: 40px 56px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 1120px; margin: 0 auto; display: flex; flex-direction: column; gap: 64px; }
+a { color: inherit; text-decoration-color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, video:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* Header */
+.head { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 32px 56px; align-items: end; }
+.kicker, .label, .chip, .fig, dt { font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
+.kicker { color: var(--accent); margin: 0 0 12px; }
+h1 { font-family: var(--display); font-weight: 700; font-size: clamp(2.6rem, 7vw, 4.6rem); line-height: 0.98; letter-spacing: -0.02em; margin: 0 0 20px; text-wrap: balance; }
+.lede { max-width: 62ch; margin: 0; color: var(--muted); font-size: 1.05rem; }
+.lede strong { color: var(--ink); font-weight: 500; }
+.contact { display: flex; flex-direction: column; gap: 14px; margin: 0; padding: 0; list-style: none; min-width: 0; }
+.contact .label { color: var(--muted); display: block; margin-bottom: 2px; }
+.contact span.val { overflow-wrap: anywhere; }
+
+/* Index */
+.index { border-top: 1px solid var(--ink); }
+.index a { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 24px; padding: 14px 0; border-bottom: 1px solid var(--rule); text-decoration: none; align-items: baseline; }
+.index a:hover .t, .index a:focus-visible .t { color: var(--accent); }
+.index .t { font-family: var(--display); font-weight: 500; font-size: 1.15rem; }
+.index .s { font-family: var(--mono); font-size: 12px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; text-align: right; }
+
+/* Entries */
+.entry { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 28px 44px; padding-top: 28px; border-top: 1px solid var(--ink); scroll-margin-top: 24px; }
+.entry h2 { font-family: var(--display); font-weight: 700; font-size: clamp(1.6rem, 3.4vw, 2.1rem); line-height: 1.1; letter-spacing: -0.01em; margin: 0 0 8px; text-wrap: balance; }
+.ctx { color: var(--muted); margin: 0 0 16px; }
+.chip { display: inline-block; border: 1px solid var(--accent); color: var(--accent); padding: 3px 9px; margin-bottom: 14px; }
+.entry ul { margin: 0 0 20px; padding-left: 1.1em; display: flex; flex-direction: column; gap: 8px; }
+.entry li::marker { color: var(--accent); }
+dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 8px 20px; margin: 0; padding-top: 14px; border-top: 1px solid var(--rule); }
+dt { color: var(--muted); padding-top: 3px; }
+dd { margin: 0; font-size: 0.95rem; }
+.text { min-width: 0; }
+
+/* Video plate */
+figure { margin: 0; min-width: 0; }
+.plate { position: relative; aspect-ratio: 16 / 9; max-width: 100%; background-color: var(--plate); background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 24px 24px; border: 1px solid var(--rule); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.plate video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #000; }
+.pending { display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 16px; text-align: center; }
+.play { width: 56px; height: 56px; border: 2px solid var(--accent); border-radius: 50%; position: relative; }
+.play::after { content: ""; position: absolute; left: 22px; top: 16px; border-left: 16px solid var(--accent); border-top: 11px solid transparent; border-bottom: 11px solid transparent; }
+.pending .label { color: var(--muted); }
+.fig { color: var(--muted); margin-top: 10px; letter-spacing: 0.05em; text-transform: none; font-size: 12.5px; }
+.fig b { color: var(--accent); font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; margin-right: 8px; }
+
+footer { border-top: 1px solid var(--ink); padding-top: 20px; display: flex; flex-wrap: wrap; gap: 8px 32px; color: var(--muted); }
+footer span { overflow-wrap: anywhere; }
+
+@media (max-width: 860px) {
+  .head { grid-template-columns: minmax(0, 1fr); }
+  .entry { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 480px) {
+  body { padding-block: 28px 40px; }
+  .index a { grid-template-columns: minmax(0, 1fr); }
+  .index .s { text-align: left; }
+  dl { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  dd { margin-bottom: 8px; }
+}
+[hidden] { display: none !important; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="head">
+    <div>
+      <p class="kicker">Robotics portfolio</p>
+      <h1>Chelsea Davidson</h1>
+      <p class="lede"><strong>MSc Robotics student at EPFL</strong> (Mobile Robotics specialisation, Computer Science minor). Five projects across amphibious, aerial, legged and manipulator robots, covering reinforcement learning, control and sim-to-real transfer. Previously a Robotic Systems Development Intern at CERN. Seeking a six-month thesis internship from February 2027.</p>
+    </div>
+    <ul class="contact">
+      <li><span class="label">Email</span><span class="val">davidson.chelsea@gmail.com</span></li>
+      <li><span class="label">LinkedIn</span><a class="val" href="https://www.linkedin.com/in/chelsea-davidson1">linkedin.com/in/chelsea-davidson1</a></li>
+      <li><span class="label">Based in</span><span class="val">Lausanne, Switzerland</span></li>
+    </ul>
+  </header>
+
+  <nav class="index" aria-label="Projects">
+    <a href="#polymander"><span class="t">Amphibious self-righting with reinforcement learning</span><span class="s">Ongoing</span></a>
+    <a href="#crazyflie"><span class="t">Autonomous Crazyflie drone</span><span class="s">Flown on hardware</span></a>
+    <a href="#quadruped"><span class="t">Quadruped locomotion</span><span class="s">Simulation</span></a>
+    <a href="#rmp"><span class="t">Surface following with Riemannian motion policies</span><span class="s">Simulation</span></a>
+    <a href="#miniature"><span class="t">Miniature robotics</span><span class="s">Built and tested</span></a>
+  </nav>
+
+  <main class="wrap" style="gap:56px">
+
+    <article class="entry" id="polymander">
+      <figure>
+        <div class="plate" data-slot="polymander">
+          <video data-src="videos/polymander.mp4" controls playsinline preload="metadata" hidden></video>
+          <div class="pending"><div class="play"></div><span class="label">Video coming soon</span></div>
+        </div>
+        <figcaption class="fig"><b>Fig. 1</b>Polymander II self-righting policy</figcaption>
+      </figure>
+      <div class="text">
+        <span class="chip">Ongoing</span>
+        <h2>Learning amphibious self-righting with reinforcement learning</h2>
+        <p class="ctx">Robotics Project I, EPFL BioRobotics Lab</p>
+        <ul>
+          <li>Training whole-body, joint-level PPO policies in MuJoCo (JAX) so the salamander-inspired Polymander II can right itself on land and in water.</li>
+          <li>Modelling servo dynamics, joint backlash and water dynamics to narrow the sim-to-real gap ahead of planned hardware evaluation.</li>
+        </ul>
+        <dl>
+          <dt>Robot</dt><dd>Polymander II</dd>
+          <dt>Simulator</dt><dd>MuJoCo, JAX</dd>
+          <dt>Method</dt><dd>PPO, whole-body joint-level control</dd>
+          <dt>Next</dt><dd>Hardware evaluation</dd>
+        </dl>
+      </div>
+    </article>
+
+    <article class="entry" id="crazyflie">
+      <figure>
+        <div class="plate" data-slot="crazyflie">
+          <video data-src="videos/crazyflie.mp4" controls playsinline preload="metadata" hidden></video>
+          <div class="pending"><div class="play"></div><span class="label">Video coming soon</span></div>
+        </div>
+        <figcaption class="fig"><b>Fig. 2</b>Crazyflie flying through gates</figcaption>
+      </figure>
+      <div class="text">
+        <span class="chip">Flown on hardware</span>
+        <h2>Autonomous Crazyflie drone</h2>
+        <p class="ctx">Aerial Robotics Course, EPFL, 2026. High Distinction in project.</p>
+        <ul>
+          <li>Developed a vision-based gate-navigation and flight-control pipeline for a Crazyflie quadrotor.</li>
+          <li>Validated the algorithms in Webots, then tuned and deployed them on the real drone.</li>
+        </ul>
+        <dl>
+          <dt>Robot</dt><dd>Crazyflie quadrotor</dd>
+          <dt>Simulator</dt><dd>Webots</dd>
+          <dt>Method</dt><dd>Computer vision (OpenCV), PID control</dd>
+          <dt>Language</dt><dd>Python</dd>
+        </dl>
+      </div>
+    </article>
+
+    <article class="entry" id="quadruped">
+      <figure>
+        <div class="plate" data-slot="quadruped">
+          <video data-src="videos/quadruped.mp4" controls playsinline preload="metadata" hidden></video>
+          <div class="pending"><div class="play"></div><span class="label">Video coming soon</span></div>
+        </div>
+        <figcaption class="fig"><b>Fig. 3</b>Unitree A1 trot and slope traversal in PyBullet</figcaption>
+      </figure>
+      <div class="text">
+        <span class="chip">Simulation</span>
+        <h2>Quadruped locomotion</h2>
+        <p class="ctx">Legged Robots Course, EPFL, 2025. High Distinction.</p>
+        <ul>
+          <li>Implemented CPG-based trot controllers with joint- and Cartesian-space PD control on a simulated Unitree A1.</li>
+          <li>Trained PPO policies that modulate CPG parameters for velocity tracking and slope traversal.</li>
+        </ul>
+        <dl>
+          <dt>Robot</dt><dd>Unitree A1 (simulated)</dd>
+          <dt>Simulator</dt><dd>PyBullet</dd>
+          <dt>Method</dt><dd>Central Pattern Generators, PD control, PPO</dd>
+          <dt>Language</dt><dd>Python</dd>
+        </dl>
+      </div>
+    </article>
+
+    <article class="entry" id="rmp">
+      <figure>
+        <div class="plate" data-slot="rmp">
+          <video data-src="videos/rmp.mp4" controls playsinline preload="metadata" hidden></video>
+          <div class="pending"><div class="play"></div><span class="label">Video coming soon</span></div>
+        </div>
+        <figcaption class="fig"><b>Fig. 4</b>Franka Panda following a surface in PyBullet</figcaption>
+      </figure>
+      <div class="text">
+        <span class="chip">Simulation</span>
+        <h2>Online surface following with Riemannian motion policies</h2>
+        <p class="ctx">Bachelor Thesis, The University of Queensland, 2023. High Distinction.</p>
+        <ul>
+          <li>Developed a real-time controller that makes a Franka Emika Panda arm follow the surface of the Large Hadron Collider accelerator, to support precise radiation measurements.</li>
+          <li>Generated point clouds from RGB-D camera data to give the controller live surface feedback.</li>
+        </ul>
+        <dl>
+          <dt>Robot</dt><dd>Franka Emika Panda (simulated)</dd>
+          <dt>Simulator</dt><dd>PyBullet</dd>
+          <dt>Method</dt><dd>Riemannian motion policies, RGB-D point clouds</dd>
+          <dt>Language</dt><dd>Python</dd>
+        </dl>
+      </div>
+    </article>
+
+    <article class="entry" id="miniature">
+      <figure>
+        <div class="plate" data-slot="miniature">
+          <video data-src="videos/miniature.mp4" controls playsinline preload="metadata" hidden></video>
+          <div class="pending"><div class="play"></div><span class="label">Video coming soon</span></div>
+        </div>
+        <figcaption class="fig"><b>Fig. 5</b>Matchbox-sized robot delivering marbles</figcaption>
+      </figure>
+      <div class="text">
+        <span class="chip">Built and tested</span>
+        <h2>Miniature robotics</h2>
+        <p class="ctx">Mechatronic System Design II, The University of Queensland, 2023. High Distinction. Team of 4.</p>
+        <ul>
+          <li>Designed and built a matchbox-sized robot that located, picked up and delivered coloured marbles to matching sockets while avoiding obstacles.</li>
+        </ul>
+        <dl>
+          <dt>Hardware</dt><dd>ESP-32 based, matchbox-sized</dd>
+          <dt>Comms</dt><dd>BLE wireless protocol</dd>
+          <dt>Language</dt><dd>C, embedded</dd>
+        </dl>
+      </div>
+    </article>
+
+  </main>
+
+  <footer>
+    <span>Chelsea Davidson, MSc Robotics, EPFL</span>
+    <span>davidson.chelsea@gmail.com</span>
+    <span>CV and references available on request</span>
+  </footer>
+</div>
+
+<script>
+document.querySelectorAll(".plate").forEach(function (plate) {
+  var video = plate.querySelector("video");
+  var pending = plate.querySelector(".pending");
+  if (!video) return;
+  video.addEventListener("loadedmetadata", function () {
+    video.hidden = false;
+    pending.hidden = true;
+  });
+  video.src = video.dataset.src;
+});
+</script>
+</body>
+</html>
