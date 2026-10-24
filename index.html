@@ -163,7 +163,7 @@ footer span { overflow-wrap: anywhere; }
           <dt>Robot</dt><dd>Polymander II</dd>
           <dt>Simulator</dt><dd>MuJoCo, JAX</dd>
           <dt>Method</dt><dd>PPO, whole-body joint-level control</dd>
-          <dt>Next</dt><dd>Hardware evaluation</dd>
+          <dt>Next</dt><dd>Training self-righting in water and hardware evaluation</dd>
         </dl>
       </div>
     </article>
@@ -237,7 +237,7 @@ footer span { overflow-wrap: anywhere; }
           <video data-src="Videos/SurfaceFollowingNoAudio.mp4" controls muted loop autoplay playsinline preload="metadata" hidden></video>
           <div class="pending"><div class="play"></div><span class="label">Video coming soon</span></div>
         </div>
-        <figcaption class="fig"><b>Fig. 4</b>Franka Panda following a surface in PyBullet, with the goal point in green</figcaption>
+        <figcaption class="fig"><b>Fig. 4</b>Franka Panda following a surface in PyBullet, with the goal point shown as a green sphere</figcaption>
       </figure>
       <div class="text">
         <span class="chip">Simulation</span>
@@ -246,7 +246,7 @@ footer span { overflow-wrap: anywhere; }
         <ul>
           <li>Developed a real-time controller that makes a Franka Emika Panda arm follow the surface of the Large Hadron Collider accelerator, to support precise radiation measurements.</li>
           <li>Built the controller on Riemannian Motion Policies (RMPs), with live surface feedback from point clouds generated from RGB-D camera data.</li>
-          <li>Evaluated it in randomly generated PyBullet environments.</li>
+          <li>Evaluated the controller in randomly generated PyBullet environments.</li>
         </ul>
         <p class="note">RMPs are well suited to point goals and convex obstacles, so the sensed surface is treated as a cloud of spheres to avoid. The goal is a point at the desired distance from the surface, shown as the green ball in the video.</p>
         <dl>
