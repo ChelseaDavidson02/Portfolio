@@ -83,6 +83,9 @@ h1 { font-family: var(--display); font-weight: 700; font-size: clamp(2.6rem, 7vw
 .chip { display: inline-block; border: 1px solid var(--accent); color: var(--accent); padding: 3px 9px; margin-bottom: 14px; }
 .entry ul { margin: 0 0 20px; padding-left: 1.1em; display: flex; flex-direction: column; gap: 8px; }
 .entry li::marker { color: var(--accent); }
+.note { margin: 0 0 20px; color: var(--muted); font-size: 0.95rem; }
+figure.sub { margin-top: 28px; }
+figure.sub img { display: block; width: 100%; max-width: 400px; height: auto; background: #fff; border: 1px solid var(--rule); }
 dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 8px 20px; margin: 0; padding-top: 14px; border-top: 1px solid var(--rule); }
 dt { color: var(--muted); padding-top: 3px; }
 dd { margin: 0; font-size: 0.95rem; }
@@ -172,6 +175,10 @@ footer span { overflow-wrap: anywhere; }
           <div class="pending"><div class="play"></div><span class="label">Video coming soon</span></div>
         </div>
         <figcaption class="fig"><b>Fig. 2</b>Crazyflie flying through gates</figcaption>
+        <figure class="sub">
+          <img src="images/crazyflie-course.png" width="2879" height="3936" loading="lazy" alt="Top-down diagram of the 8 m by 8 m course. Five gates sit in a loop around the arena, to be flown through counter-clockwise from the take-off pad. The orange path is the untimed vision lap and the red path is the timed laps. Below it, a gate drawing shows its width of 0.3 to 0.5 m, a 0.4 m opening and a height of 0.7 to 2.0 m.">
+          <figcaption class="fig"><b>Fig. 2b</b>Course layout and gate dimensions</figcaption>
+        </figure>
       </figure>
       <div class="text">
         <span class="chip">Flown on hardware</span>
@@ -181,8 +188,10 @@ footer span { overflow-wrap: anywhere; }
           <li>Developed a vision-based gate-navigation and flight-control pipeline for a Crazyflie quadrotor.</li>
           <li>Validated the algorithms in Webots, then tuned and deployed them on the real drone.</li>
         </ul>
+        <p class="note">In the video, the drone flies the course in three laps. In the first lap it uses computer vision to detect and localise the gates. Gate positions and sizes are randomised, but there are always five gates arranged in a loop, and they must be flown through in counter-clockwise order (see Fig. 2b). In the second and third laps, which are timed, the drone flies through the gates as fast as it can.</p>
         <dl>
           <dt>Robot</dt><dd>Crazyflie quadrotor</dd>
+          <dt>Course</dt><dd>8 m by 8 m arena, five randomised gates</dd>
           <dt>Simulator</dt><dd>Webots</dd>
           <dt>Method</dt><dd>Computer vision (OpenCV), PID control</dd>
           <dt>Language</dt><dd>Python</dd>
@@ -267,7 +276,6 @@ footer span { overflow-wrap: anywhere; }
 
   <footer>
     <span>Chelsea Davidson, MSc Robotics, EPFL</span>
-    <span>davidson.chelsea@gmail.com</span>
     <span>CV and references available on request</span>
   </footer>
 </div>
