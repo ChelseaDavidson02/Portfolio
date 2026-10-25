@@ -126,7 +126,7 @@ footer span { overflow-wrap: anywhere; }
     <div>
       <p class="kicker">Robotics portfolio</p>
       <h1>Chelsea Davidson</h1>
-      <p class="lede"><strong>MSc Robotics student at EPFL</strong> (Mobile Robotics specialisation, Computer Science minor). Five projects across amphibious, aerial, legged and manipulator robots, covering reinforcement learning, control and sim-to-real transfer. Previously a Robotic Systems Development Intern at CERN. Seeking a six-month thesis internship from February 2027.</p>
+      <p class="lede"><strong>MSc Robotics student at EPFL</strong> (Mobile Robotics specialisation, Computer Science minor). Five projects across amphibious, aerial, legged, and manipulator robots, covering reinforcement learning, control, navigation and sim-to-real transfer. Previously a Robotic Systems Development Intern at CERN. Seeking a six-month thesis internship from February 2027.</p>
     </div>
     <ul class="contact">
       <li><span class="label">LinkedIn</span><a class="val" href="https://www.linkedin.com/in/chelsea-davidson1">linkedin.com/in/chelsea-davidson1</a></li>
@@ -137,8 +137,8 @@ footer span { overflow-wrap: anywhere; }
     <a href="#polymander"><span class="t">Amphibious self-righting with reinforcement learning</span><span class="s">Ongoing</span></a>
     <a href="#crazyflie"><span class="t">Autonomous Crazyflie drone</span><span class="s">Flown on hardware</span></a>
     <a href="#quadruped"><span class="t">Quadruped locomotion</span><span class="s">Simulation</span></a>
+    <a href="#mobile"><span class="t">Vision-based mobile robot navigation</span><span class="s">Built and tested</span></a>
     <a href="#rmp"><span class="t">Surface following with Riemannian motion policies</span><span class="s">Simulation</span></a>
-    <a href="#miniature"><span class="t">Miniature robotics</span><span class="s">Built and tested</span></a>
   </nav>
 
   <main class="wrap" style="gap:56px">
@@ -205,13 +205,13 @@ footer span { overflow-wrap: anywhere; }
           <video data-src="Videos/Trotting.mp4" controls muted loop autoplay playsinline preload="metadata" hidden></video>
           <div class="pending"><div class="play"></div><span class="label">Video coming soon</span></div>
         </div>
-        <figcaption class="fig"><b>Fig. 3a</b>CPG-based trot on the Unitree A1 in PyBullet</figcaption>
+        <figcaption class="fig"><b>Fig. 4a</b>CPG-based trot on the Unitree A1 in PyBullet</figcaption>
         <figure class="sub">
           <div class="plate" data-slot="quadruped-slope">
             <video data-src="Videos/SlopeController.mp4" controls muted loop autoplay playsinline preload="metadata" hidden></video>
             <div class="pending"><div class="play"></div><span class="label">Video coming soon</span></div>
           </div>
-          <figcaption class="fig"><b>Fig. 3b</b>PPO-adapted CPG controller traversing a slope</figcaption>
+          <figcaption class="fig"><b>Fig. 4b</b>PPO-adapted CPG controller traversing a slope</figcaption>
         </figure>
       </figure>
       <div class="text">
@@ -231,13 +231,52 @@ footer span { overflow-wrap: anywhere; }
       </div>
     </article>
 
+    <article class="entry" id="mobile">
+      <figure>
+        <div class="plate" data-slot="mobile">
+          <video data-src="Videos/MobileRobotics.mp4" controls muted loop autoplay playsinline preload="metadata" hidden></video>
+          <div class="pending"><div class="play"></div><span class="label">Video coming soon</span></div>
+        </div>
+        <figcaption class="fig"><b>Fig. 3a</b>Thymio navigating with overhead-camera localisation</figcaption>
+        <figure class="sub">
+          <div class="plate" data-slot="mobile-local">
+            <video data-src="Videos/LocalAvoidance.mp4" controls muted loop autoplay playsinline preload="metadata" hidden></video>
+            <div class="pending"><div class="play"></div><span class="label">Video coming soon</span></div>
+          </div>
+          <figcaption class="fig"><b>Fig. 3b</b>Local obstacle avoidance and a kidnapped-robot test (the robot is picked up and moved)</figcaption>
+        </figure>
+        <figure class="sub">
+          <div class="plate" data-slot="mobile-vision-loss">
+            <video data-src="Videos/VisionLoss.mp4" controls muted loop autoplay playsinline preload="metadata" hidden></video>
+            <div class="pending"><div class="play"></div><span class="label">Video coming soon</span></div>
+          </div>
+          <figcaption class="fig"><b>Fig. 3c</b>Navigation continuing after vision is lost</figcaption>
+        </figure>
+      </figure>
+      <div class="text">
+        <span class="chip">Built and tested</span>
+        <h2>Vision-based mobile robot navigation</h2>
+        <p class="ctx">Basics of Mobile Robotics, EPFL, 2025. Team project.</p>
+        <ul>
+          <li>Built a Thymio navigation system with overhead-camera localisation (ArUco markers) and colour-based obstacle detection.</li>
+          <li>Combined A* global planning, local avoidance of dynamic obstacles, and a Kalman filter fusing wheel odometry with vision, so the robot keeps moving when vision is lost.</li>
+        </ul>
+        <dl>
+          <dt>Robot</dt><dd>Thymio</dd>
+          <dt>Sensing</dt><dd>Overhead camera, ArUco markers, wheel odometry</dd>
+          <dt>Planning</dt><dd>A* (global), local obstacle avoidance</dd>
+          <dt>Estimation</dt><dd>Kalman filter (wheels and vision)</dd>
+        </dl>
+      </div>
+    </article>
+
     <article class="entry" id="rmp">
       <figure>
         <div class="plate" data-slot="rmp">
           <video data-src="Videos/SurfaceFollowingNoAudio.mp4" controls muted loop autoplay playsinline preload="metadata" hidden></video>
           <div class="pending"><div class="play"></div><span class="label">Video coming soon</span></div>
         </div>
-        <figcaption class="fig"><b>Fig. 4</b>Franka Panda following a surface in PyBullet, with the goal point shown as a green sphere</figcaption>
+        <figcaption class="fig"><b>Fig. 5</b>Franka Panda following a surface in PyBullet, with the goal point in green</figcaption>
       </figure>
       <div class="text">
         <span class="chip">Simulation</span>
@@ -258,28 +297,6 @@ footer span { overflow-wrap: anywhere; }
       </div>
     </article>
 
-    <article class="entry" id="miniature">
-      <figure>
-        <div class="plate" data-slot="miniature">
-          <video data-src="Videos/Miniature.mp4" controls muted loop autoplay playsinline preload="metadata" hidden></video>
-          <div class="pending"><div class="play"></div><span class="label">Video coming soon</span></div>
-        </div>
-        <figcaption class="fig"><b>Fig. 5</b>Matchbox-sized robot delivering marbles</figcaption>
-      </figure>
-      <div class="text">
-        <span class="chip">Built and tested</span>
-        <h2>Miniature robotics</h2>
-        <p class="ctx">Mechatronic System Design II, The University of Queensland, 2023. High Distinction. Team of 4.</p>
-        <ul>
-          <li>Designed and built a matchbox-sized robot that located, picked up and delivered coloured marbles to matching sockets while avoiding obstacles.</li>
-        </ul>
-        <dl>
-          <dt>Hardware</dt><dd>ESP-32 based, matchbox-sized</dd>
-          <dt>Comms</dt><dd>BLE wireless protocol</dd>
-          <dt>Language</dt><dd>C, embedded</dd>
-        </dl>
-      </div>
-    </article>
 
   </main>
 
