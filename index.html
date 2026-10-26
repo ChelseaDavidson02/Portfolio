@@ -85,6 +85,8 @@ h1 { font-family: var(--display); font-weight: 700; font-size: clamp(2.6rem, 7vw
 .entry li::marker { color: var(--accent); }
 .note { margin: 0 0 20px; color: var(--muted); font-size: 0.95rem; }
 figure.sub { margin-top: 28px; }
+figure.sub.centered { text-align: center; }
+figure.sub.centered img { margin-inline: auto; }
 figure.sub img { display: block; width: 100%; max-width: 400px; height: auto; background: #fff; border: 1px solid var(--rule); }
 dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 8px 20px; margin: 0; padding-top: 14px; border-top: 1px solid var(--rule); }
 dt { color: var(--muted); padding-top: 3px; }
@@ -93,11 +95,18 @@ dd { margin: 0; font-size: 0.95rem; }
 
 /* Video plate */
 figure { margin: 0; min-width: 0; }
-.plate { position: relative; aspect-ratio: 16 / 9; max-width: 100%; background-color: var(--plate); background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 24px 24px; border: 1px solid var(--rule); display: flex; align-items: center; justify-content: center; overflow: hidden; }
-.plate video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #000; }
+.plate { position: relative; aspect-ratio: var(--r, 1.7778); width: 100%; max-width: 100%; background-color: var(--plate); background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 24px 24px; border: 1px solid var(--rule); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.plate video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: #fff; }
 .reel { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px 16px; margin-top: 28px; }
 .reel figure { margin: 0; }
-.plate.tall { aspect-ratio: 9 / 16; }
+.reel.flush { margin-top: 0; }
+.reel figure.wide { grid-column: span 2; align-self: center; }
+.reel.fit { display: flex; align-items: flex-start; gap: 16px; }
+.reel.fit figure { flex: 1 1 0; min-width: 0; }
+.reel.fit figure.wide { grid-column: auto; align-self: flex-start; }
+.plate.tall { --r: 0.5625; }
+.plate.crop { --r: 1.7647; background: #fff; }
+.plate.crop video { object-fit: cover; }
 .reel .fig { font-size: 12px; }
 .deck { display: inline-block; margin: 0 0 20px; padding: 8px 14px; border: 1px solid var(--accent); color: var(--accent); text-decoration: none; }
 .deck:hover { background: var(--accent); color: var(--bg, #fff); }
@@ -115,6 +124,8 @@ footer span { overflow-wrap: anywhere; }
   .head { grid-template-columns: minmax(0, 1fr); }
   .entry { grid-template-columns: minmax(0, 1fr); }
 }
+@media (max-width: 480px) { .reel.fit { flex-wrap: wrap; } }
+@media (max-width: 480px) { .reel:not(.fit) { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 480px) {
   body { padding-block: 28px 40px; }
   .index a { grid-template-columns: minmax(0, 1fr); }
@@ -140,23 +151,101 @@ footer span { overflow-wrap: anywhere; }
   </header>
 
   <nav class="index" aria-label="Projects">
+    <a href="#cern"><span class="t">Task trajectory generator (CERN)</span><span class="s">Tested on hardware</span></a>
     <a href="#polymander"><span class="t">Amphibious self-righting with reinforcement learning</span><span class="s">Ongoing</span></a>
     <a href="#crazyflie"><span class="t">Autonomous Crazyflie drone</span><span class="s">Flown on hardware</span></a>
-    <a href="#mobile"><span class="t">Vision-based mobile robot navigation</span><span class="s">Built and tested</span></a>
     <a href="#quadruped"><span class="t">Quadruped locomotion</span><span class="s">Simulation</span></a>
     <a href="#rmp"><span class="t">Surface following with Riemannian motion policies</span><span class="s">Simulation</span></a>
-    <a href="#cern"><span class="t">Singularity-free task trajectory generator (CERN)</span><span class="s">Tested on hardware</span></a>
+    <a href="#mobile"><span class="t">Vision-based mobile robot navigation</span><span class="s">Built and tested</span></a>
   </nav>
 
   <main class="wrap" style="gap:56px">
 
+    <article class="entry" id="cern">
+      <figure>
+        <div class="reel fit">
+          <figure>
+            <div class="plate tall" data-slot="cern-context">
+              <video data-src="Videos/CernProblemContext.mp4" controls muted loop autoplay playsinline preload="metadata" hidden></video>
+              <div class="pending"><div class="play"></div><span class="label">Video coming soon</span></div>
+            </div>
+            <figcaption class="fig"><b>Fig. 1a</b>A robot working in a CERN accelerator tunnel, the setting the framework is built for</figcaption>
+          </figure>
+          <figure class="wide">
+            <div class="plate crop" data-slot="cern-tim">
+              <video data-src="Videos/CernTim.mp4" controls muted loop autoplay playsinline preload="metadata" hidden></video>
+              <div class="pending"><div class="play"></div><span class="label">Video coming soon</span></div>
+            </div>
+            <figcaption class="fig"><b>Fig. 1b</b>The accelerator environment</figcaption>
+          </figure>
+        </div>
+        <div class="reel">
+          <figure>
+            <div class="plate tall" data-slot="cern-square">
+              <video data-src="Videos/CernTranslationSquare - Trim.mp4" controls muted loop autoplay playsinline preload="metadata" hidden></video>
+              <div class="pending"><div class="play"></div><span class="label">Video coming soon</span></div>
+            </div>
+            <figcaption class="fig"><b>Fig. 1c</b>Translation: corners of a square</figcaption>
+          </figure>
+          <figure>
+            <div class="plate tall" data-slot="cern-roll">
+              <video data-src="Videos/CernRotationRoll - Trim.mp4" controls muted loop autoplay playsinline preload="metadata" hidden></video>
+              <div class="pending"><div class="play"></div><span class="label">Video coming soon</span></div>
+            </div>
+            <figcaption class="fig"><b>Fig. 1d</b>Rotation: negative roll</figcaption>
+          </figure>
+          <figure>
+            <div class="plate tall" data-slot="cern-sqrot">
+              <video data-src="Videos/CernSquareWithRotation - Trim.mp4" controls muted loop autoplay playsinline preload="metadata" hidden></video>
+              <div class="pending"><div class="play"></div><span class="label">Video coming soon</span></div>
+            </div>
+            <figcaption class="fig"><b>Fig. 1e</b>Square path with roll added at two points</figcaption>
+          </figure>
+          <figure>
+            <div class="plate tall" data-slot="cern-p2p">
+              <video data-src="Videos/CernPointToPoint - Trim.mp4" controls muted loop autoplay playsinline preload="metadata" hidden></video>
+              <div class="pending"><div class="play"></div><span class="label">Video coming soon</span></div>
+            </div>
+            <figcaption class="fig"><b>Fig. 1f</b>Point to point, every pose component changing</figcaption>
+          </figure>
+          <figure>
+            <div class="plate tall" data-slot="cern-screw">
+              <video data-src="Videos/CernScrew - Trim.mp4" controls muted loop autoplay playsinline preload="metadata" hidden></video>
+              <div class="pending"><div class="play"></div><span class="label">Video coming soon</span></div>
+            </div>
+            <figcaption class="fig"><b>Fig. 1g</b>Screw motion: translating along and rotating about z</figcaption>
+          </figure>
+        </div>
+      </figure>
+      <div class="text">
+        <span class="chip">Tested on hardware</span>
+        <h2>Task trajectory generator</h2>
+        <p class="ctx">Robotic Systems Development Intern, CERN (BE-CEM-MRO). Presented at the 26th BE-CEM Students' Coffee, June 2024.</p>
+        <ul>
+          <li>Designed and implemented a Task Trajectory Generator for the CERN Robotics Framework (CRF) in C++. It turns a list of end-effector poses into a smooth trajectory in task space.</li>
+          <li>Position uses cubic polynomial interpolation. Orientation uses a cubic quaternion spline, so rotation trajectories avoid the gimbal lock of Euler angles.</li>
+          <li>Position and orientation share time instances derived from the task velocity and acceleration limits, so the robot reaches each pose's position and orientation together.</li>
+          <li>Poses can be added while a trajectory is running. Each new segment starts from the end velocity of the previous one, so motion stays smooth.</li>
+          <li>Demonstrated translation, rotation and combined motion on the CERN SPS robot.</li>
+        </ul>
+        <p class="note">The full talk is available as a PowerPoint. The speaker notes contain my complete script, covering the problem context, the algorithms and the demonstrations.</p>
+        <a class="deck" href="presentation/CERN_Student_Coffee_Chelsea_Davidson.pptx" download>Download the presentation (PowerPoint, with script in the notes)</a>
+        <dl>
+          <dt>Robot</dt><dd>CERN SPS robot (hardware)</dd>
+          <dt>Framework</dt><dd>CERN Robotics Framework (CRF)</dd>
+          <dt>Method</dt><dd>Cubic polynomials, cubic quaternion splines</dd>
+          <dt>Language</dt><dd>C++</dd>
+        </dl>
+      </div>
+    </article>
+
     <article class="entry" id="polymander">
       <figure>
         <div class="plate" data-slot="polymander">
-          <video data-src="Videos/SelfRightingOnLand.mp4" controls muted loop playsinline preload="metadata" hidden></video>
+          <video data-src="Videos/SelfRightingOnLand.mp4" controls muted loop autoplay playsinline preload="metadata" hidden></video>
           <div class="pending"><div class="play"></div><span class="label">Video coming soon</span></div>
         </div>
-        <figcaption class="fig"><b>Fig. 1</b>Polymander II self-righting policy</figcaption>
+        <figcaption class="fig"><b>Fig. 2</b>Polymander II self-righting policy</figcaption>
       </figure>
       <div class="text">
         <span class="chip">Ongoing</span>
@@ -178,13 +267,13 @@ footer span { overflow-wrap: anywhere; }
     <article class="entry" id="crazyflie">
       <figure>
         <div class="plate" data-slot="crazyflie">
-          <video data-src="Videos/CrazyFlie.mp4" controls muted loop playsinline preload="metadata" hidden></video>
+          <video data-src="Videos/CrazyFlie.mp4" controls muted loop autoplay playsinline preload="metadata" hidden></video>
           <div class="pending"><div class="play"></div><span class="label">Video coming soon</span></div>
         </div>
-        <figcaption class="fig"><b>Fig. 2</b>Crazyflie flying through gates</figcaption>
-        <figure class="sub">
+        <figcaption class="fig"><b>Fig. 3</b>Crazyflie flying through gates</figcaption>
+        <figure class="sub centered">
           <img src="Photos/crazyflieTrack.png" width="2879" height="3936" loading="lazy" alt="Top-down diagram of the 8 m by 8 m course. Five gates sit in a loop around the arena, to be flown through counter-clockwise from the take-off pad. The orange path is the untimed vision lap and the red path is the timed laps. Below it, a gate drawing shows its width of 0.3 to 0.5 m, a 0.4 m opening and a height of 0.7 to 2.0 m.">
-          <figcaption class="fig"><b>Fig. 2b</b>Course layout and gate dimensions</figcaption>
+          <figcaption class="fig"><b>Fig. 3b</b>Course layout and gate dimensions</figcaption>
         </figure>
       </figure>
       <div class="text">
@@ -195,7 +284,7 @@ footer span { overflow-wrap: anywhere; }
           <li>Developed a vision-based gate-navigation and flight-control pipeline for a Crazyflie quadrotor.</li>
           <li>Validated the algorithms in Webots, then tuned and deployed them on the real drone.</li>
         </ul>
-        <p class="note">In the video, the drone flies the course in three laps. In the first lap it uses computer vision to detect and localise the gates. Gate positions and sizes are randomised, but there are always five gates arranged in a loop, and they must be flown through in counter-clockwise order (see Fig. 2b). In the second and third laps, which are timed, the drone flies through the gates as fast as it can.</p>
+        <p class="note">In the video, the drone flies the course in three laps. In the first lap it uses computer vision to detect and localise the gates. Gate positions and sizes are randomised, but there are always five gates arranged in a loop, and they must be flown through in counter-clockwise order (see Fig. 3b). In the second and third laps, which are timed, the drone flies through the gates as fast as it can.</p>
         <dl>
           <dt>Robot</dt><dd>Crazyflie quadrotor</dd>
           <dt>Course</dt><dd>8 m by 8 m arena, five randomised gates</dd>
@@ -206,58 +295,19 @@ footer span { overflow-wrap: anywhere; }
       </div>
     </article>
 
-    <article class="entry" id="mobile">
-      <figure>
-        <div class="plate" data-slot="mobile">
-          <video data-src="Videos/MobileRobotics.mp4" controls muted loop autoplay playsinline preload="metadata" hidden></video>
-          <div class="pending"><div class="play"></div><span class="label">Video coming soon</span></div>
-        </div>
-        <figcaption class="fig"><b>Fig. 3a</b>Thymio navigating with overhead-camera localisation</figcaption>
-        <figure class="sub">
-          <div class="plate" data-slot="mobile-local">
-            <video data-src="Videos/LocalAvoidance.mp4" controls muted loop autoplay playsinline preload="metadata" hidden></video>
-            <div class="pending"><div class="play"></div><span class="label">Video coming soon</span></div>
-          </div>
-          <figcaption class="fig"><b>Fig. 3b</b>Local obstacle avoidance and a kidnapped-robot test (the robot is picked up and moved)</figcaption>
-        </figure>
-        <figure class="sub">
-          <div class="plate" data-slot="mobile-vision-loss">
-            <video data-src="Videos/VisionLoss.mp4" controls muted loop autoplay playsinline preload="metadata" hidden></video>
-            <div class="pending"><div class="play"></div><span class="label">Video coming soon</span></div>
-          </div>
-          <figcaption class="fig"><b>Fig. 3c</b>Navigation continuing after vision is lost</figcaption>
-        </figure>
-      </figure>
-      <div class="text">
-        <span class="chip">Built and tested</span>
-        <h2>Vision-based mobile robot navigation</h2>
-        <p class="ctx">Basics of Mobile Robotics, EPFL, 2025. Team project.</p>
-        <ul>
-          <li>Built a Thymio navigation system with overhead-camera localisation (ArUco markers) and colour-based obstacle detection.</li>
-          <li>Combined A* global planning, local avoidance of dynamic obstacles, and a Kalman filter fusing wheel odometry with vision, so the robot keeps moving when vision is lost.</li>
-        </ul>
-        <dl>
-          <dt>Robot</dt><dd>Thymio</dd>
-          <dt>Sensing</dt><dd>Overhead camera, ArUco markers, wheel odometry</dd>
-          <dt>Planning</dt><dd>A* (global), local obstacle avoidance</dd>
-          <dt>Estimation</dt><dd>Kalman filter (wheels and vision)</dd>
-        </dl>
-      </div>
-    </article>
-
     <article class="entry" id="quadruped">
       <figure>
         <div class="plate" data-slot="quadruped-trot">
-          <video data-src="Videos/Trotting.mp4" controls muted loop playsinline preload="metadata" hidden></video>
+          <video data-src="Videos/Trotting.mp4" controls muted loop autoplay playsinline preload="metadata" hidden></video>
           <div class="pending"><div class="play"></div><span class="label">Video coming soon</span></div>
         </div>
-        <figcaption class="fig"><b>Fig. 4a</b>CPG-based trot on the Unitree A1 in PyBullet</figcaption>
+        <figcaption class="fig"><b>Fig. 5a</b>CPG-based trot on the Unitree A1 in PyBullet</figcaption>
         <figure class="sub">
           <div class="plate" data-slot="quadruped-slope">
-            <video data-src="Videos/SlopeController.mp4" controls muted loop playsinline preload="metadata" hidden></video>
+            <video data-src="Videos/SlopeController.mp4" controls muted loop autoplay playsinline preload="metadata" hidden></video>
             <div class="pending"><div class="play"></div><span class="label">Video coming soon</span></div>
           </div>
-          <figcaption class="fig"><b>Fig. 4b</b>PPO-adapted CPG controller traversing a slope</figcaption>
+          <figcaption class="fig"><b>Fig. 5b</b>PPO-adapted CPG controller traversing a slope</figcaption>
         </figure>
       </figure>
       <div class="text">
@@ -280,10 +330,10 @@ footer span { overflow-wrap: anywhere; }
     <article class="entry" id="rmp">
       <figure>
         <div class="plate" data-slot="rmp">
-          <video data-src="Videos/SurfaceFollowing.mp4" controls muted loop playsinline preload="metadata" hidden></video>
+          <video data-src="Videos/SurfaceFollowingNoAudio.mp4" controls muted loop autoplay playsinline preload="metadata" hidden></video>
           <div class="pending"><div class="play"></div><span class="label">Video coming soon</span></div>
         </div>
-        <figcaption class="fig"><b>Fig. 5</b>Franka Panda following a surface in PyBullet, with the goal point in green</figcaption>
+        <figcaption class="fig"><b>Fig. 6</b>Franka Panda following a surface in PyBullet, with the goal point in green</figcaption>
       </figure>
       <div class="text">
         <span class="chip">Simulation</span>
@@ -304,80 +354,49 @@ footer span { overflow-wrap: anywhere; }
       </div>
     </article>
 
-
-    <article class="entry" id="cern">
+    <article class="entry" id="mobile">
       <figure>
-        <div class="plate" data-slot="cern-context">
-          <video data-src="Videos/CernProblemContext.mp4" controls muted loop autoplay playsinline preload="metadata" hidden></video>
-          <div class="pending"><div class="play"></div><span class="label">Video coming soon</span></div>
-        </div>
-        <figcaption class="fig"><b>Fig. 6a</b>A robot working in a CERN accelerator tunnel, the setting the framework is built for</figcaption>
-        <div class="reel">
+        <div class="reel fit flush">
           <figure>
-            <div class="plate tall" data-slot="cern-tim">
-              <video data-src="Videos/CernTIM.mp4" controls muted loop autoplay playsinline preload="metadata" hidden></video>
+            <div class="plate" data-slot="mobile">
+              <video data-src="Videos/ThymioMoving.mp4" controls muted loop autoplay playsinline preload="metadata" hidden></video>
               <div class="pending"><div class="play"></div><span class="label">Video coming soon</span></div>
             </div>
-            <figcaption class="fig"><b>Fig. 6b</b>The accelerator environment</figcaption>
+            <figcaption class="fig"><b>Fig. 4a</b>Thymio navigating with overhead-camera localisation</figcaption>
           </figure>
           <figure>
-            <div class="plate tall" data-slot="cern-square">
-              <video data-src="Videos/CernTranslationSquare.mp4" controls muted loop autoplay playsinline preload="metadata" hidden></video>
+            <div class="plate" data-slot="mobile-local">
+              <video data-src="Videos/LocalObsAndKidnap.mp4" controls muted loop autoplay playsinline preload="metadata" hidden></video>
               <div class="pending"><div class="play"></div><span class="label">Video coming soon</span></div>
             </div>
-            <figcaption class="fig"><b>Fig. 6c</b>Translation: corners of a square</figcaption>
+            <figcaption class="fig"><b>Fig. 4b</b>Local obstacle avoidance and a kidnapped-robot test (the robot is picked up and moved)</figcaption>
           </figure>
           <figure>
-            <div class="plate tall" data-slot="cern-roll">
-              <video data-src="Videos/CernRotationRoll.mp4" controls muted loop autoplay playsinline preload="metadata" hidden></video>
+            <div class="plate" data-slot="mobile-vision-loss">
+              <video data-src="Videos/VisionLoss.mp4" controls muted loop autoplay playsinline preload="metadata" hidden></video>
               <div class="pending"><div class="play"></div><span class="label">Video coming soon</span></div>
             </div>
-            <figcaption class="fig"><b>Fig. 6d</b>Rotation: negative roll</figcaption>
-          </figure>
-          <figure>
-            <div class="plate tall" data-slot="cern-sqrot">
-              <video data-src="Videos/CernSquareWithRotation.mp4" controls muted loop autoplay playsinline preload="metadata" hidden></video>
-              <div class="pending"><div class="play"></div><span class="label">Video coming soon</span></div>
-            </div>
-            <figcaption class="fig"><b>Fig. 6e</b>Square path with roll added at two points</figcaption>
-          </figure>
-          <figure>
-            <div class="plate tall" data-slot="cern-p2p">
-              <video data-src="Videos/CernPointToPoint.mp4" controls muted loop autoplay playsinline preload="metadata" hidden></video>
-              <div class="pending"><div class="play"></div><span class="label">Video coming soon</span></div>
-            </div>
-            <figcaption class="fig"><b>Fig. 6f</b>Point to point, every pose component changing</figcaption>
-          </figure>
-          <figure>
-            <div class="plate tall" data-slot="cern-screw">
-              <video data-src="Videos/CernScrew.mp4" controls muted loop autoplay playsinline preload="metadata" hidden></video>
-              <div class="pending"><div class="play"></div><span class="label">Video coming soon</span></div>
-            </div>
-            <figcaption class="fig"><b>Fig. 6g</b>Screw motion: translating along and rotating about z</figcaption>
+            <figcaption class="fig"><b>Fig. 4c</b>Navigation continuing after vision is lost</figcaption>
           </figure>
         </div>
       </figure>
       <div class="text">
-        <span class="chip">Tested on hardware</span>
-        <h2>Singularity-free task trajectory generator</h2>
-        <p class="ctx">Robotic Systems Development Intern, CERN (BE-CEM-MRO). Presented at the 26th BE-CEM Students' Coffee, June 2024.</p>
+        <span class="chip">Built and tested</span>
+        <h2>Vision-based mobile robot navigation</h2>
+        <p class="ctx">Basics of Mobile Robotics, EPFL, 2025. Team project.</p>
         <ul>
-          <li>Designed and implemented a Task Trajectory Generator for the CERN Robotics Framework (CRF) in C++. It turns a list of end-effector poses into a smooth trajectory in task space.</li>
-          <li>Position uses cubic polynomial interpolation. Orientation uses a cubic quaternion spline, so rotation trajectories avoid the gimbal lock of Euler angles.</li>
-          <li>Position and orientation share time instances derived from the task velocity and acceleration limits, so the robot reaches each pose's position and orientation together.</li>
-          <li>Poses can be added while a trajectory is running. Each new segment starts from the end velocity of the previous one, so motion stays smooth.</li>
-          <li>Demonstrated translation, rotation and combined motion on the CERN SPS robot. Future work: quintic interpolation for continuous acceleration, and an analytical convergence check for the spline.</li>
+          <li>Built a Thymio navigation system with overhead-camera localisation (ArUco markers) and colour-based obstacle detection.</li>
+          <li>Combined A* global planning, local avoidance of dynamic obstacles with replanning, and a Kalman filter fusing wheel odometry with vision, so the robot keeps moving when vision is lost.</li>
         </ul>
-        <p class="note">The full talk is available as a PowerPoint. The speaker notes contain my complete script, covering the problem context, the algorithms and the demonstrations.</p>
-        <a class="deck" href="presentation/CERN_Student_Coffee_Chelsea_Davidson.pptx" download>Download the presentation (PowerPoint, with script in the notes)</a>
         <dl>
-          <dt>Robot</dt><dd>CERN SPS robot (hardware)</dd>
-          <dt>Framework</dt><dd>CERN Robotics Framework (CRF)</dd>
-          <dt>Method</dt><dd>Cubic polynomials, cubic quaternion splines</dd>
-          <dt>Language</dt><dd>C++</dd>
+          <dt>Robot</dt><dd>Thymio</dd>
+          <dt>Sensing</dt><dd>Overhead camera, ArUco markers, wheel odometry</dd>
+          <dt>Planning</dt><dd>A* (global), local obstacle avoidance</dd>
+          <dt>Estimation</dt><dd>Kalman filter (wheels and vision)</dd>
         </dl>
       </div>
     </article>
+
 
   </main>
 
@@ -388,6 +407,16 @@ footer span { overflow-wrap: anywhere; }
 </div>
 
 <script>
+/* A video alone on its line fills the full width. Videos side by side in a ".reel.fit" row share the line, each
+   getting a width proportional to its shape, so they all have the same height. */
+function fitReel(reel) {
+  reel.querySelectorAll(":scope > figure").forEach(function (fig) {
+    var plate = fig.querySelector(".plate");
+    var r = parseFloat(getComputedStyle(plate).getPropertyValue("--r")) || 1.7778;
+    fig.style.flexGrow = r;
+  });
+}
+document.querySelectorAll(".reel.fit").forEach(fitReel);
 document.querySelectorAll(".plate").forEach(function (plate) {
   var video = plate.querySelector("video");
   var pending = plate.querySelector(".pending");
@@ -395,6 +424,11 @@ document.querySelectorAll(".plate").forEach(function (plate) {
   video.addEventListener("loadedmetadata", function () {
     video.hidden = false;
     pending.hidden = true;
+    if (!plate.classList.contains("crop") && video.videoWidth && video.videoHeight) {
+      plate.style.setProperty("--r", video.videoWidth / video.videoHeight);
+    }
+    var reel = plate.closest(".reel.fit");
+    if (reel) fitReel(reel);
   });
   video.src = video.dataset.src;
 });
